@@ -30,6 +30,8 @@ const Home = () => {
         const addTaskResult = await TaskAPIs.addTask(Config.config.base_url + Config.config.add_task,
             { 'description': task }, {
             'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json",
+
         });
         const { _id, completed, description } = addTaskResult;
         setTasks([...tasks, { _id, completed, description }]);
@@ -41,7 +43,6 @@ const Home = () => {
         const task = tasks[deleteIndex];
         const deleteTaskResult = await TaskAPIs.deleteTask(Config.config.base_url + Config.config.delete_task + task?._id, {
             'Authorization': `Bearer ${token}`,
-            "Content-Type": "application/json",
 
         })
         if (deleteTaskResult) {
