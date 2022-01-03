@@ -11,7 +11,6 @@ const getUser = async (url = '', body = {}) => {
         },
         data: data
     };
-    console.log({ config })
     try {
         const response = await axios(config);
         const { user, token } = response.data;

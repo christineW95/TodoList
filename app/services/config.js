@@ -10,7 +10,7 @@ const config = {
 }
 const headers = {
     "Content-Type": "application/json",
-    "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWQxYTlkMzI3NTE0MTAwMTcyZGEyNGEiLCJpYXQiOjE2NDExMzE3MDd9.NeJlpCz_Hud0rFg82Zjq9o3HpPuciZbPQwQ9UK90agw'
+    // "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWQxYTlkMzI3NTE0MTAwMTcyZGEyNGEiLCJpYXQiOjE2NDExMzE3MDd9.NeJlpCz_Hud0rFg82Zjq9o3HpPuciZbPQwQ9UK90agw'
 }
 
 export {

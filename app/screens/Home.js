@@ -28,7 +28,9 @@ const Home = () => {
         if (task == null) { return; }
         Keyboard.dismiss();
         const addTaskResult = await TaskAPIs.addTask(Config.config.base_url + Config.config.add_task,
-            { 'description': task });
+            { 'description': task }, {
+            'Authorization': `Bearer ${token}`,
+        });
         const { _id, completed, description } = addTaskResult;
         setTasks([...tasks, { _id, completed, description }]);
         setIsLoading(false);
@@ -37,7 +39,11 @@ const Home = () => {
     const deleteTask = async (deleteIndex) => {
         setIsLoading(true);
         const task = tasks[deleteIndex];
-        const deleteTaskResult = await TaskAPIs.deleteTask(Config.config.base_url + Config.config.delete_task + task?._id)
+        const deleteTaskResult = await TaskAPIs.deleteTask(Config.config.base_url + Config.config.delete_task + task?._id, {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json",
+
+        })
         if (deleteTaskResult) {
             setTasks(tasks.filter((value, index) => index != deleteIndex));
         }
@@ -46,21 +52,23 @@ const Home = () => {
     };
     useEffect(() => {
         setIsLoading(true);
-        TaskAPIs.getAllTasks(Config.config.base_url + Config.config.get_task, {
-            'Authorization': `Bearer ${token}`,
-        }).then((result) => {
-            const parsedTasks = result?.map(task => {
-                return {
-                    _id: task._id,
-                    completed: task.completed,
-                    description: task.description
-                };
+        if (token) {
+            TaskAPIs.getAllTasks(Config.config.base_url + Config.config.get_task, {
+                'Authorization': `Bearer ${token}`,
+            }).then((result) => {
+                const parsedTasks = result?.map(task => {
+                    return {
+                        _id: task._id,
+                        completed: task.completed,
+                        description: task.description
+                    };
+                });
+                if (parsedTasks?.length > 0) {
+                    setIsLoading(false);
+                    setTasks(parsedTasks);
+                }
             });
-            if (parsedTasks.length > 0) {
-                setIsLoading(false);
-                setTasks(parsedTasks);
-            }
-        });
+        }
         setIsLoading(false);
     }, [token]);
     return (

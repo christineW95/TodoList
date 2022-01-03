@@ -26,6 +26,7 @@ const LoginScreen = ({ navigation }) => {
         });
         if (loginToken) {
             setIsLoading(false);
+            console.log(loginToken)
             await AsyncStorage.setItem('@user_token', loginToken);
             navigation.navigate('Home');
 

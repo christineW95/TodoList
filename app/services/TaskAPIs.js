@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
-import { headers } from './config';
-async function getAllTasks(url, body) {
+async function getAllTasks(url, headers) {
     var config = {
         method: 'get',
         url,
@@ -19,15 +18,16 @@ async function getAllTasks(url, body) {
         console.log(err);
     }
 }
-async function addTask(url, task) {
+async function addTask(url, task, headers) {
     var data = JSON.stringify(task);
     var config = {
         method: 'post',
-        url: url,
-        headers: headers,
-        data: data,
+        url,
+        headers,
+        data,
     };
     try {
+        console.log({ config })
         const res = await axios(config);
         const { success, data } = res.data;
         if (!success)
@@ -53,7 +53,7 @@ async function editTask(url, task) {
     }
 }
 
-async function deleteTask(url) {
+async function deleteTask(url, headers) {
     var config = {
         method: 'delete',
         url: url,
